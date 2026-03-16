@@ -1,0 +1,37 @@
+{
+    "_id": "ObjectId",
+
+    "projectName": "String",
+    
+    "description": "String",
+
+    "projectMembers": ["String"],        // more than 1 member
+
+    "projectManagers": ["String"],       // more than 1 manager
+
+    "totalMembers": "Number",            // projectMembers.length + projectManagers.length
+
+    "projectLocation": {
+        "city": "String",
+        "state": "String",
+        "country": "String"
+    },
+
+    "projectFiles": ["String"],          // store URLs from Cloudinary
+
+    "isComplete": "Boolean",
+
+    "startDate": "Date",                 // when the project starts
+
+    "endDate": "Date",                   // projected/actual end date
+
+    "status": "String",                  // e.g., "pending", "in-progress", "completed"
+
+    "tags": ["String"],                  // optional categories
+
+    "priority": "String",                // e.g., "Low", "Medium", "High"
+
+    "createdAt": "Date",                 // auto timestamp on creation
+    
+    "updatedAt": "Date"                  // auto timestamp on update
+}
