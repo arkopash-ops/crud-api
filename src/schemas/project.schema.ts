@@ -34,7 +34,8 @@ export const projectZodSchema = z.object({
 
     totalMembers: z.number()
         .int()
-        .nonnegative(),
+        .nonnegative()
+        .optional(),
 
     projectLocation: projectLocationSchema,
 
