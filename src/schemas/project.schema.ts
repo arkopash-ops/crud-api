@@ -51,7 +51,7 @@ export const projectZodSchema = z.object({
 
     isComplete: z.boolean()
         .default(false),
-}).refine((data) => data.endDate > data.startDate, {
-    message: "End date must be after start date",
-    path: ["endDate"],
 });
+
+
+export const updateProjectSchema = projectZodSchema.partial();

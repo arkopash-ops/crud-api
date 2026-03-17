@@ -4,7 +4,7 @@ A simple CRUD API to manage projects, project members, and project managers. Bui
 
 - **Cloudinary** for file storage  
 - **Winston** for logging
-
+- **Zod** for validation
 
 ---
 
@@ -15,6 +15,7 @@ A simple CRUD API to manage projects, project members, and project managers. Bui
 - Track project status, priority, and tags
 - Upload and store project files via **Cloudinary**
 - Structured logging with **Winston**
+- Validate request data using **Zod** for type-safe and reliable inputs
 
 
 ---

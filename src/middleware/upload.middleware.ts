@@ -22,8 +22,15 @@ export const uploadFilesMiddleware = (fieldName: string) => {
                     files.map(
                         (file) =>
                             new Promise<void>((resolve, reject) => {
+                                const originalName = file.originalname;
                                 const stream = cloudinary.uploader.upload_stream(
-                                    { resource_type: "raw", folder: "projectfile" },
+                                    {
+                                        resource_type: "raw",
+                                        folder: "projectfile",
+                                        public_id: originalName.replace(/\.[^/.]+$/, ""),
+                                        use_filename: true,
+                                        unique_filename: false
+                                    },
                                     (error, result) => {
                                         if (error) return reject(error);
                                         uploadedUrls.push(result!.secure_url);

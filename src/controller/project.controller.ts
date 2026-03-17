@@ -64,7 +64,56 @@ export const _getProjectByID = async (req: Request, res: Response) => {
 };
 
 
-export const _updateProject = async (req: Request, res: Response) => { };
+export const _updateProject = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    if (!id || Array.isArray(id)) {
+        return res.status(400).json({
+            success: false,
+            message: "Invalid or missing id."
+        });
+    }
+
+    const uploadedFiles: string[] = (req as any).uploadedFiles || [];
+
+    try {
+        const updatedProject = await projectService.updateProject(id, req.body, uploadedFiles);
+        return res.status(200).json({
+            message: "Project updated successfully",
+            data: updatedProject,
+        });
+    } catch (error: any) {
+        logger.error(`Update Project Error: ${error.message}`);
+        return res.status(404).json({
+            message: error.message || "Failed to update project",
+        });
+    }
+};
 
 
-export const _deletProject = async (req: Request, res: Response) => { };
+export const _deleteProject = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    if (!id || Array.isArray(id)) {
+        return res.status(400).json({
+            success: false,
+            message: "Invalid or missing id.",
+        });
+    }
+
+    try {
+        const deletedProject = await projectService.deleteProject(id);
+
+        return res.status(200).json({
+            success: true,
+            message: "Project deleted successfully",
+            data: deletedProject,
+        });
+    } catch (error: any) {
+        logger.error(`Delete Project Error: ${error.message}`);
+        return res.status(404).json({
+            success: false,
+            message: error.message || "Failed to delete project",
+        });
+    }
+};
