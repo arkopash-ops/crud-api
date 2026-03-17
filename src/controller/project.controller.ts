@@ -23,10 +23,45 @@ export const _createNewProject = async (req: Request, res: Response) => {
 };
 
 
-export const _getAllProjects = async (req: Request, res: Response) => { };
+export const _getAllProjects = async (req: Request, res: Response) => {
+    try {
+        const projects = await projectService.getAllProjects();
+        return res.status(200).json({
+            message: "Projects fetched successfully",
+            data: projects,
+        });
+    } catch (error: any) {
+        logger.error(`Get Projects Error: ${error.message}`);
+        return res.status(500).json({
+            message: error.message || "Failed to fetch projects",
+        });
+    }
+};
 
 
-export const _getProjectByID = async (req: Request, res: Response) => { };
+export const _getProjectByID = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    if (!id || Array.isArray(id)) {
+        return res.status(400).json({
+            success: false,
+            message: "Invalid or missing id."
+        });
+    }
+
+    try {
+        const project = await projectService.getProjectByID(id);
+        return res.status(200).json({
+            message: "Project fetched successfully",
+            data: project,
+        });
+    } catch (error: any) {
+        logger.error(`Get Project By ID Error: ${error.message}`);
+        return res.status(404).json({
+            message: error.message || "Project not found",
+        });
+    }
+};
 
 
 export const _updateProject = async (req: Request, res: Response) => { };

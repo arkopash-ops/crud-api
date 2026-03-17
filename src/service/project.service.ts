@@ -25,10 +25,32 @@ export const createNewProject = async (data: ProjectInput, uploadedFiles: string
 };
 
 
-export const getAllProjects = async () => { };
+export const getAllProjects = async () => {
+    try {
+        const projects = await ProjectModel.find().lean();
+        logger.info(`Fetched ${projects.length} projects.`);
+        return projects;
+    } catch (error: any) {
+        logger.error("Failed to fetch projects.");
+        throw new Error(error.message || "Failed to fetch projects");
+    }
+};
 
 
-export const getProjectByID = async () => { };
+export const getProjectByID = async (projectId: string) => {
+    try {
+        const project = await ProjectModel.findById(projectId).lean();
+        if (!project) {
+            logger.warn(`Project with ID ${projectId} not found.`);
+            throw new Error("Project not found");
+        }
+        logger.info(`Project with ID ${projectId} fetched successfully.`);
+        return project;
+    } catch (error: any) {
+        logger.error(`Failed to fetch project with ID ${projectId}: ${error.message}`);
+        throw new Error(error.message || "Failed to fetch project");
+    }
+};
 
 
 export const updateProject = async () => { };
