@@ -3,6 +3,23 @@ import type { Request, Response } from 'express';
 
 const router = express.Router();
 
+
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: API health check / landing page
+ *     description: Returns a simple HTML page to verify backend is running
+ *     tags: [General]
+ *     responses:
+ *       200:
+ *         description: HTML page loaded successfully
+ *         content:
+ *           text/html:
+ *             schema:
+ *               type: string
+ */
+
 router.get("/", (req: Request, res: Response) => {
     res.send(`
         <html>

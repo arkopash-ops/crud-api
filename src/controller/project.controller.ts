@@ -68,9 +68,9 @@ export const _updateProject = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     if (!id || Array.isArray(id)) {
-        return res.status(400).json({
+        return res.status(404).json({
             success: false,
-            message: "Invalid or missing id."
+            message: "Project not found."
         });
     }
 
@@ -84,7 +84,7 @@ export const _updateProject = async (req: Request, res: Response) => {
         });
     } catch (error: any) {
         logger.error(`Update Project Error: ${error.message}`);
-        return res.status(404).json({
+        return res.status(500).json({
             message: error.message || "Failed to update project",
         });
     }
@@ -95,9 +95,9 @@ export const _deleteProject = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     if (!id || Array.isArray(id)) {
-        return res.status(400).json({
+        return res.status(404).json({
             success: false,
-            message: "Invalid or missing id.",
+            message: "Project not found.",
         });
     }
 
@@ -111,7 +111,7 @@ export const _deleteProject = async (req: Request, res: Response) => {
         });
     } catch (error: any) {
         logger.error(`Delete Project Error: ${error.message}`);
-        return res.status(404).json({
+        return res.status(500).json({
             success: false,
             message: error.message || "Failed to delete project",
         });
